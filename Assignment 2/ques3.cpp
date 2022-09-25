@@ -9,6 +9,11 @@ class Node{
         this->next = NULL;
     }
 };
+void InsertAtHead(Node* &Head, int d){
+    Node* Temp=new Node(d);
+    Temp->next=Head;
+    Head=Temp;
+}
 void InsertAtPosition( Node* &Tail, Node* &Head, int d, int pos){
     if(pos==1){
         InsertAtHead(Head, d);
@@ -24,19 +29,23 @@ void InsertAtPosition( Node* &Tail, Node* &Head, int d, int pos){
     Temp1->next=Temp->next;
     Temp->next=Temp1;
 }
-void InsertAtHead(Node* &Head, int d){
-    Node* Temp=new Node(d);
-    Temp->next=Head;
-    Head=Temp;
-}
-void PrintMiddle(Node* &Head,int n){
-    Node* Temp=Head;
-    int cnt=1;
-    while(cnt<n/2){
-        Temp=Temp->next;
-        cnt++;
+Node *midPoint(Node *head)
+{
+    // Write your code here
+    if(head==NULL){
+        return NULL;
     }
-    cout<<Temp->data<<endl;
+    Node *slow=head;
+    Node *fast=head->next;
+     if(slow->next==NULL){
+        return slow;
+    }
+    while(fast!=NULL&&fast->next!=NULL){
+		fast=fast->next->next;
+        slow=slow->next;
+
+    }
+    return slow;
 }
 
 int main(){
@@ -50,6 +59,6 @@ int main(){
         cin>>d;
         InsertAtHead(Head, d);
     }
-    PrintMiddle(Head,n);
+    cout<<"The middle element of the linked list is: "<<midPoint(Head)->data;
     return 0;
 }
